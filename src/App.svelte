@@ -3,16 +3,28 @@
 	let val = ''
 	let toDoList = ['Open you ED account', 'Finish you homework on Time']
 	function handleClick(event) {
+		// reactive
 		toDoList = [...toDoList, val]	
-		console.log(toDoList)
+	}
+	function handleRemove(todo,i){
+		//reactive
+		toDoList = toDoList.filter((x) => {
+			return x != todo
+		})
+		yes = yes.filter((x) => {
+			return x != i
+		})
+
 	}
 </script>
 
 <main>
 	<h1>Bobby's To Do List</h1>
+	<!-- reactive -->
 	<input type = text bind:value= {val}>
 	<button on:click = {handleClick}> Add</button>
 	<ul>
+		<!-- control flow -->
 		{#each toDoList as todo, i}
 			<li>
 				<input type = checkbox bind:group ={yes} value = {i}>
@@ -21,7 +33,8 @@
 				{:else}
 					<strike> {todo} </strike>
 				{/if}
-				<button> Remove</button>
+				<!-- event handling -->
+				<button on:click = { () => {return handleRemove(todo, i)}}> Remove</button>
 			</li>
 		{/each}
 	</ul>
